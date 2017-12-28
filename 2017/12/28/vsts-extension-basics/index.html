@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+  <!-- Html Head Tag-->
+  <head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="Ryan Tauriainen">
+  <!-- Open Graph Data -->
+  <meta property="og:title" content="VSTS Extension Basics"/>
+  <meta property="og:description" content="" />
+  <meta property="og:site_name" content="Ryan Tauriainen"/>
+  <meta property="og:type" content="article" />
+  <meta property="og:image" content="https://mrtarantula.github.io"/>
+  
+    <link rel="alternate" href="/atom.xml" title="Ryan Tauriainen" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+
+  <!-- Site Title -->
+  <title>Ryan Tauriainen</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <!-- Custom CSS -->
+  
+  <link rel="stylesheet" href="/css/style.light.css">
+
+  <!-- Google Analytics -->
+  
+
+</head>
+
+  <body>
+    <!-- Page Header -->
+
+
+<header class="site-header header-background" style="background-image: url(/img/default-banner-light.jpg)">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="page-title with-background-image">
+          <p class="title">VSTS Extension Basics</p>
+          <p class="subtitle"></p>
+        </div>
+        <div class="site-menu with-background-image">
+          <ul>
+            
+              <li>
+                <a href="/">
+                  
+                  Home
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="/archives">
+                  
+                  Archives
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="https://github.com/mrtarantula">
+                  
+                  Github
+                  
+                </a>
+              </li>
+            
+              <li>
+                <a href="mailto:ryan@ryant.io">
+                  
+                  Contact
+                  
+                </a>
+              </li>
+            
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          <!-- Date -->
+          <span class="date-time info">
+            <span class="date">12-28-2017</span>
+          </span>
+          
+          <!--  Categories  -->
+            <span class="categories info">Categories: 
+
+<a href="/categories/VSTS/">VSTS</a>
+</span>
+          
+        <!-- Tags -->
+        
+          <span class="post-tags info">
+            Tags: 
+
+<a class="tag" href="/tags/vsts/">vsts</a> <a class="tag" href="/tags/tfs/">tfs</a>
+
+
+          </span>
+        
+        </div>
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <p>VSTS is a powerful set of tools for managing people, code, deployments, lifecycle, and just about anything you can imagine thanks to its extensibility. Need to replace text in a file at build or release? <a id="more"></a>Need a new input control type in the work item form? Need to <a href="https://marketplace.visualstudio.com/items?itemName=mrtarantula.wiprint" target="_blank" rel="noopener">print some work items</a>? There’s an extension for it.</p>
+<p>But what if you need to do something and can’t find an extension for it? Just build it! It’s easier than you might think. There are many good resources out there, but a lot of them are sometimes lacking, out-of-date, and generally not noob-friendly. I’m hoping I can fix that in this article. </p>
+<h2 id="Anatomy-of-an-Extension"><a href="#Anatomy-of-an-Extension" class="headerlink" title="Anatomy of an Extension"></a>Anatomy of an Extension</h2><p>VSTS extensions are basically just web apps, with some special hooks into VSTS, supplied by <code>VSS.SDK.js</code>. Add a reference to it in an HTML page, initialize it, and you’re nearly ready. The extension also needs to be packaged by <code>tfx-cli</code>, using a manifest file called <a href="https://docs.microsoft.com/en-us/vsts/extend/develop/manifest" target="_blank" rel="noopener"><code>vss-extension.json</code></a>.</p>
+<h2 id="vss-extension-json-The-Good-Parts"><a href="#vss-extension-json-The-Good-Parts" class="headerlink" title="vss-extension.json - The Good Parts"></a><code>vss-extension.json</code> - The Good Parts</h2><p>The <code>vss-extension.json</code> file may look scary at first, but there are only a few parts that how your extension works and where it is displayed.</p>
+<h3 id="Scopes"><a href="#Scopes" class="headerlink" title="Scopes"></a>Scopes</h3><p><a href="https://docs.microsoft.com/en-us/vsts/extend/develop/manifest#scopes" target="_blank" rel="noopener">Scopes</a> provide access to specific areas of VSTS for your extension. If you need to modify work items as part of your extension, add the <code>vso.work_write</code> scope. If you only need to read the information, only add <code>vso.work</code>. You can add as many scopes as you’d like to the array, but of course it is best to limit it to what you actually use.</p>
+<h3 id="Targets"><a href="#Targets" class="headerlink" title="Targets"></a>Targets</h3><p><a href="https://docs.microsoft.com/en-us/vsts/extend/develop/manifest#installation-targets" target="_blank" rel="noopener">Targets</a> define where your extension can be installed. This is useful if you want to limit your extension to being installed only on VSTS, or specific versions of TFS.</p>
+<h3 id="Contributions"><a href="#Contributions" class="headerlink" title="Contributions"></a>Contributions</h3><p><a href="https://docs.microsoft.com/en-us/vsts/extend/develop/contributions-overview" target="_blank" rel="noopener">Contributions</a> describe the actual content of your extension:</p>
+<figure class="highlight"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line">    "contributions": [</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"id"</span>: <span class="string">"hub-barebones"</span>,</span><br><span class="line">            <span class="attr">"type"</span>: <span class="string">"ms.vss-web.hub"</span>,</span><br><span class="line">            <span class="attr">"description"</span>: <span class="string">"Adds a thing to the Work hub group."</span>,</span><br><span class="line">            <span class="attr">"targets"</span>: [</span><br><span class="line">                <span class="string">"ms.vss-work-web.work-hub-group"</span></span><br><span class="line">            ],</span><br><span class="line">            <span class="attr">"properties"</span>: &#123;</span><br><span class="line">                <span class="attr">"name"</span>: <span class="string">"A Thing"</span>,</span><br><span class="line">                <span class="attr">"order"</span>: <span class="number">99</span>,</span><br><span class="line">                <span class="attr">"uri"</span>: <span class="string">"index.html"</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    ]</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>type</code> describes what we are adding: a hub</li>
+<li><code>targets[]</code> describes where we are adding the new hub: the Work hub group</li>
+<li><code>properties</code> contains information used for displaying the hub in VSTS<ul>
+<li><code>name</code> is the title that shows in the top hub menu</li>
+<li><code>order</code> controls where on the hub menu the name will be displayed, in relation to other hubs</li>
+<li><code>uri</code> is the html file to be loaded for the extension. <code>VSS.SDK.js</code> must be initialized in this file or the extension will fail to load.</li>
+</ul>
+</li>
+</ul>
+<h2 id="Putting-it-All-Together"><a href="#Putting-it-All-Together" class="headerlink" title="Putting it All Together"></a>Putting it All Together</h2><p>Now that we know the basics, let’s create an extension.</p>
+<h3 id="Prerequisites"><a href="#Prerequisites" class="headerlink" title="Prerequisites"></a>Prerequisites</h3><ul>
+<li>Install <a href="https://nodejs.org/en/download/" target="_blank" rel="noopener">Node</a></li>
+<li>Install tfs-cli - <code>npm install -g tfs-cli</code></li>
+<li>Register as a <a href="http://aka.ms/vsmarketplace-manage" target="_blank" rel="noopener">VSTS Marketplace publisher</a></li>
+<li>Download VSS SDK and copy <code>VSS.SDK.js</code> into your extension’s folder</li>
+</ul>
+<blockquote>
+<p>If you are experienced with Node you can also install the VSS SDK with <code>npm install vss-web-extension-sdk</code>. This article is meant as an introduction to show how the individual pieces work together.</p>
+</blockquote>
+<h3 id="index-html"><a href="#index-html" class="headerlink" title="index.html"></a>index.html</h3><figure class="highlight html"><table><tr><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">"en"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">title</span>&gt;</span>Barebones Hub<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">        <span class="comment">&lt;!-- Include VSS SDK --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">"VSS.SDK.js"</span>&gt;</span><span class="undefined"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">h1</span>&gt;</span>I don't do anything!<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment">&lt;!-- Initialize VSS SDK --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"text/javascript"</span>&gt;</span><span class="undefined"></span></span><br><span class="line"><span class="undefined">            VSS.init();</span></span><br><span class="line"><span class="undefined">            VSS.notifyLoadSucceeded();</span></span><br><span class="line"><span class="undefined">        </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h3 id="vss-extension-json"><a href="#vss-extension-json" class="headerlink" title="vss-extension.json"></a>vss-extension.json</h3><figure class="highlight json"><table><tr><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">"manifestVersion"</span>: <span class="number">1</span>,</span><br><span class="line">    <span class="attr">"id"</span>: <span class="string">"barebones"</span>,</span><br><span class="line">    <span class="attr">"version"</span>: <span class="string">"0.1.0"</span>,</span><br><span class="line">    <span class="attr">"name"</span>: <span class="string">"VSTS Barebones Hub"</span>,</span><br><span class="line">    <span class="attr">"publisher"</span>: <span class="string">"YOURPUBLISHER"</span>,</span><br><span class="line">    <span class="attr">"public"</span>: <span class="literal">false</span>,</span><br><span class="line">    <span class="attr">"scopes"</span>: [],</span><br><span class="line">    <span class="attr">"targets"</span>: [&#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"Microsoft.VisualStudio.Services"</span></span><br><span class="line">    &#125;],</span><br><span class="line">    <span class="attr">"files"</span>: [&#123;</span><br><span class="line">            <span class="attr">"path"</span>: <span class="string">"index.html"</span>,</span><br><span class="line">            <span class="attr">"addressable"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="attr">"path"</span>: <span class="string">"VSS.SDK.js"</span>,</span><br><span class="line">            <span class="attr">"addressable"</span>: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    ],</span><br><span class="line">    <span class="attr">"contributions"</span>: [&#123;</span><br><span class="line">        <span class="attr">"id"</span>: <span class="string">"hub-barebones"</span>,</span><br><span class="line">        <span class="attr">"type"</span>: <span class="string">"ms.vss-web.hub"</span>,</span><br><span class="line">        <span class="attr">"description"</span>: <span class="string">"Adds a thing to the Work hub group."</span>,</span><br><span class="line">        <span class="attr">"targets"</span>: [</span><br><span class="line">            <span class="string">"ms.vss-work-web.work-hub-group"</span></span><br><span class="line">        ],</span><br><span class="line">        <span class="attr">"properties"</span>: &#123;</span><br><span class="line">            <span class="attr">"name"</span>: <span class="string">"A Thing"</span>,</span><br><span class="line">            <span class="attr">"order"</span>: <span class="number">99</span>,</span><br><span class="line">            <span class="attr">"uri"</span>: <span class="string">"index.html"</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="Package-Your-Extension"><a href="#Package-Your-Extension" class="headerlink" title="Package Your Extension"></a>Package Your Extension</h3><p>From your extension folder, run <code>tfx extension create</code>. After a second or two, a <code>vsix</code> file will appear in your folder. Upload this file to the <a href="https://marketplace.visualstudio.com/manage" target="_blank" rel="noopener">VSTS Marketplace</a> or TFS to view your new hub.</p>
+<p><img src="images/thinghub.png" alt="A Thing VSTS hub"></p>
+<p>Pretty neat! In a future article I will discuss how to use a <a href="http://yeoman.io" target="_blank" rel="noopener">Yeoman</a> generator to set up an extension with TypeScript, Webpack, and npm libraries.</p>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</article>
+
+
+
+    <!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <p class="copyright text-muted">
+          Theme By <a target="_blank" href="https://github.com/levblanc">Levblanc.</a>
+          Inspired By <a target="_blank" href="https://github.com/klugjo/hexo-theme-clean-blog">Clean Blog.</a>
+        <p class="copyright text-muted">
+          Powered By <a target="_blank" href="https://hexo.io/">Hexo.</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    <!-- After Footer Scripts -->
+<script src="/js/highlight.pack.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function(event) {
+    var codeBlocks = Array.prototype.slice.call(document.getElementsByTagName('pre'))
+    codeBlocks.forEach(function(block, index) {
+      hljs.highlightBlock(block);
+    });
+  });
+</script>
+
+  </body>
+</html>
+
