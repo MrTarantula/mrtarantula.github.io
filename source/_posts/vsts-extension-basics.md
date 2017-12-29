@@ -135,6 +135,6 @@ Now that we know the basics, let's create an extension.
 
 From your extension folder, run `tfx extension create`. After a second or two, a `vsix` file will appear in your folder. Upload this file to the [VSTS Marketplace](https://marketplace.visualstudio.com/manage) or TFS to view your new hub.
 
-![A Thing VSTS hub](images/thinghub.png)
+![A Thing VSTS hub](/images/thinghub.png)
 
 Pretty neat! Source code is [here](https://github.com/mrtarantula/vsts-barebones-hub). In a future article I will discuss how to use a [Yeoman](http://yeoman.io) generator to set up an extension with TypeScript, Webpack, and npm libraries.
