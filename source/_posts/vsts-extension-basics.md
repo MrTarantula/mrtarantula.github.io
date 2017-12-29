@@ -2,6 +2,7 @@ title: VSTS Extension Basics
 date: 2017-12-28
 category: VSTS
 tags: ["vsts", "tfs"]
+color: YlOrRd
 # cover: /images/awesome-bg.jpg  # <= remember to add this line in your post
 ---
 

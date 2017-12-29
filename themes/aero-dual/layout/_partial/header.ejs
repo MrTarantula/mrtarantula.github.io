@@ -1,22 +1,11 @@
 <!-- Page Header -->
 <%
-  var headerClass = 'site-header';
+  var headerClass = 'site-header header-background';
   var headerStyle = '';
-  var pageTitleClass = 'page-title';
+  var pageTitleClass = 'page-title  with-background-image';
   var pageTitle = '';
   var pageSubtitle = '';
-  var siteMenuClass = 'site-menu';
-
-  if (theme.use_header_cover) {
-    headerClass += ' header-background';
-    if (config.root === '/') {
-      headerStyle = 'background-image: url(' + theme.index_cover + ')';
-    } else {
-      headerStyle = 'background-image: url(' + config.root + theme.index_cover + ')';
-    }
-    pageTitleClass += ' with-background-image';
-    siteMenuClass += ' with-background-image';
-  }
+  var siteMenuClass = 'site-menu  with-background-image';
 
   if (headerType === 'index') {
     pageTitle = config.title;
