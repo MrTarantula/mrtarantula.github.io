@@ -1,7 +1,7 @@
 /* basic colors */
 /* theme colors */
 /* modify value of $theme-color to get different theme colors */
-@import url("https://fonts.googleapis.com/css?family=Open Sans");
+@import url("https://fonts.googleapis.com/css?family=Poppins");
 .hljs {
   display: block;
   overflow-x: auto;
@@ -110,7 +110,7 @@ body {
   background-color: #fff;
   font-size: 100%; /* add PX (or original value) as backup */
   font-size: 100%;
-  font-family: Open Sans, sans-serif;
+  font-family: Poppins, sans-serif;
 }
 a {
   color: #1999ec;
