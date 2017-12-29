@@ -1,0 +1,28 @@
+html,
+body
+  color $theme-text-color
+  background-color $theme-background
+  base-font-size(100%)
+  font-family $font-family
+a
+  color $theme-color
+  &:hover
+    text-decoration none
+    color-revert()
+    transition all .25s
+    cursor pointer
+
+strong
+  color $theme-text-color
+
+h1, h2, h3, h4, h5, h6
+  color $theme-text-color
+  margin-top 1.2em
+  margin-bottom 0.6em
+  line-height 1.35
+
+table, p, pre, ul, ol, dl, form, hr, blockquote 
+  margin-bottom 1.2em
+
+ul, ol
+  list-style none

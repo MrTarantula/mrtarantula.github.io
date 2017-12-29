@@ -1,0 +1,32 @@
+<%- partial('_partial/header', {
+  headerType: 'post',
+  post: post
+}) %>
+<article>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-info text-muted">
+          <!-- Date -->
+          <span class="date-time info">
+            <span class="date"><%- date(post.date) %></span>
+          </span>
+          <% if (post.categories && post.categories.length){ %>
+          <!--  Categories  -->
+            <span class="categories info">Categories: <%- partial('categories', {categories: post.categories}) %></span>
+          <% } %>
+        <!-- Tags -->
+        <% if (post.tags && post.tags.length) { %>
+          <span class="post-tags info">
+            Tags: <%- partial('tags', {tags: post.tags, tagHash: true}) %>
+          </span>
+        <% } %>
+        </div>
+        <!-- Post Main Content -->
+        <div class="post-content">
+          <%- post.content %>
+        </div>
+      </div>
+    </div>
+  </div>
+</article>

@@ -1,0 +1,16 @@
+language: node_js
+node_js:
+- lts/*
+branches:
+  only:
+  - source
+
+install: npm install
+
+before_script:
+- npm install -g hexo-cli
+- git config --global user.name "MrTarantula"
+- git config --global user.email "ryantarantula@gmail.com"
+- sed -i "s/__GITHUB_TOKEN__/${__GITHUB_TOKEN__}/" _config.yml
+
+script: npm run build
