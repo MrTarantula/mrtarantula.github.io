@@ -165,7 +165,7 @@ ol {
   -moz-background-size: cover;
   background-size: cover;
   -o-background-size: cover;
-  height: 300;
+  height: 300px;
 }
 .site-header .page-title {
   color: #1999ec;
