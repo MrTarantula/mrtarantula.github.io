@@ -137,4 +137,4 @@ From your extension folder, run `tfx extension create`. After a second or two, a
 
 ![A Thing VSTS hub](images/thinghub.png)
 
-Pretty neat! In a future article I will discuss how to use a [Yeoman](http://yeoman.io) generator to set up an extension with TypeScript, Webpack, and npm libraries.
+Pretty neat! Source code is [here](https://github.com/mrtarantula/vsts-barebones-hub). In a future article I will discuss how to use a [Yeoman](http://yeoman.io) generator to set up an extension with TypeScript, Webpack, and npm libraries.
