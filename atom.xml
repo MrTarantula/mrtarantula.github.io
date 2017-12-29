@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ryan Tauriainen</title>
+  
+  <subtitle>Full Stack Developer and Technophile</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="https://mrtarantula.github.io/"/>
+  <updated>2017-12-29T22:42:52.626Z</updated>
+  <id>https://mrtarantula.github.io/</id>
+  
+  <author>
+    <name>Ryan Tauriainen</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>VSTS Extension Basics</title>
+    <link href="https://mrtarantula.github.io/vsts-extension-basics/"/>
+    <id>https://mrtarantula.github.io/vsts-extension-basics/</id>
+    <published>2017-12-28T06:00:00.000Z</published>
+    <updated>2017-12-29T22:42:52.626Z</updated>
+    
+    <summary type="html">
+    
+      &lt;p&gt;VSTS is a powerful set of tools for managing people, code, deployments, lifecycle, and just about anything you can imagine thanks to its extensibility. Need to replace text in a file at build or release?
+    
+    </summary>
+    
+      <category term="VSTS" scheme="https://mrtarantula.github.io/categories/VSTS/"/>
+    
+    
+      <category term="vsts" scheme="https://mrtarantula.github.io/tags/vsts/"/>
+    
+      <category term="tfs" scheme="https://mrtarantula.github.io/tags/tfs/"/>
+    
+  </entry>
+  
+</feed>
